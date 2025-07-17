@@ -35,7 +35,6 @@ services:
       - MOODLE_DATABASE_NAME=bitnami_moodle
       - MOODLE_DATABASE_PASSWORD=${MOODLE_DATABASE_PASSWORD}
       - MOODLE_PASSWORD=moodle
-      - MOODLE_TENANT=moodle
       #- ALLOW_EMPTY_PASSWORD=yes
       - MOODLE_REDIS_HOST=redis
       - ALLOW_EMPTY_PASSWORD=no
