@@ -25,9 +25,9 @@ services:
       dockerfile: ./Dockerfile
     #image: docker.io/bitnami/moodle:4.5
     container_name: moodle
-    ports:
-      - '80:8080'
-      - '443:443'
+   # ports:
+   #   - '80:8080'
+   #   - '443:443'
     environment:
       - MOODLE_DATABASE_HOST=mariadb
       - MOODLE_DATABASE_PORT_NUMBER=3306
@@ -60,5 +60,21 @@ services:
       - redis
     networks:
       - moodle-network
+  caddy:
+    image: caddy:latest
+    container_name: moodle_caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy_data:/data
+      - ./caddy_config:/config
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    depends_on:
+      - moodle
+    networks:
+      - moodle-network
+
 networks:
   moodle-network:
