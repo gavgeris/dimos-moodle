@@ -22,7 +22,7 @@ services:
   moodle:
     build:
       context: ./config/build
-      dockerfile: ./config/build/Dockerfile
+      dockerfile: ./Dockerfile
     #image: docker.io/bitnami/moodle:4.5
     container_name: moodle
     ports:
