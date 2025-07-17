@@ -1,0 +1,50 @@
+services:
+  mariadb:
+    image: docker.io/bitnami/mariadb:latest
+    container_name: moodle1_db
+    environment:
+      #- ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+      - MARIADB_USER=bn_moodle
+      - MARIADB_ROOT_PASSWORD=${ROOT_PASSWORD}
+      - MARIADB_DATABASE=bitnami_moodle
+      - MARIADB_CHARACTER_SET=utf8mb4
+      - MARIADB_COLLATE=utf8mb4_unicode_ci
+    volumes:
+      - ./mariadb_data:/bitnami/mariadb
+    networks:
+      - moodle1-network
+  redis:
+    container_name: moodle1_redis
+    image: redis
+    networks:
+      - moodle1-network
+  moodle:
+    build:
+      context: config/build
+      dockerfile: config/build/Dockerfile
+    #image: docker.io/bitnami/moodle:4.5
+    container_name: moodle1
+    ports:
+      - '80:8080'
+      - '443:443'
+    environment:
+      - MOODLE_DATABASE_HOST=mariadb
+      - MOODLE_DATABASE_PORT_NUMBER=3306
+      - MOODLE_DATABASE_USER=bn_moodle
+      - MOODLE_DATABASE_NAME=bitnami_moodle
+      - MOODLE_DATABASE_PASSWORD=${MOODLE_DATABASE_PASSWORD}
+      - MOODLE_PASSWORD=moodle
+      - MOODLE_TENANT=moodle1
+      #- ALLOW_EMPTY_PASSWORD=yes
+      - MOODLE_REDIS_HOST=redis
+    volumes:
+      - ./moodle_data:/bitnami/moodle
+      - ./moodledata_data:/bitnami/moodledata
+    depends_on:
+      - mariadb
+      - redis
+    networks:
+      - moodle1-network
+networks:
+  moodle1-network:
