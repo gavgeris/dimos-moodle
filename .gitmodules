@@ -1,0 +1,36 @@
+[submodule "plugins/mod/groupmembers"]
+	path = plugins/mod/groupmembers
+	url = https://github.com/learnweb/moodle-mod_groupmembers
+[submodule "plugins/mod/questionnaire"]
+	path = plugins/mod/questionnaire
+	url = https://github.com/PoetOS/moodle-mod_questionnaire
+[submodule "plugins/mod/coursecertificate"]
+	path = plugins/mod/coursecertificate
+	url = https://github.com/moodleworkplace/moodle-mod_coursecertificate
+[submodule "plugins/blocks/sharing_cart"]
+	path = plugins/blocks/sharing_cart
+	url = https://github.com/donhinkelman/moodle-block_sharing_cart
+[submodule "plugins/blocks/configurable_reports"]
+	path = plugins/blocks/configurable_reports
+	url = https://github.com/jleyva/moodle-block_configurablereports/
+[submodule "plugins/filter/filtercodes"]
+	path = plugins/filter/filtercodes
+	url = https://github.com/michael-milette/moodle-filter_filtercodes
+[submodule "plugins/filter/generico"]
+	path = plugins/filter/generico
+	url = https://github.com/justinhunt/moodle-filter_generico
+[submodule "plugins/admin/tool/certificate"]
+	path = plugins/admin/tool/certificate
+	url = https://github.com/moodleworkplace/moodle-tool_certificate
+[submodule "plugins/course/format/remuiformat"]
+	path = plugins/course/format/remuiformat
+	url = https://github.com/gavgeris/moodle-format_remuiformat.git
+[submodule "plugins/local/modcustomfields"]
+	path = plugins/local/modcustomfields
+	url = https://gitlab.com/adapta/moodle-local_modcustomfields
+[submodule "plugins/local/staticpage"]
+	path = plugins/local/staticpage
+	url = https://github.com/moodle-an-hochschulen/moodle-local_staticpage
+[submodule "plugins/enrol/autoenrol"]
+	path = plugins/enrol/autoenrol
+	url = https://github.com/bobopinna/moodle-enrol_autoenrol
