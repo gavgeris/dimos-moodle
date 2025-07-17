@@ -38,9 +38,23 @@ services:
       - MOODLE_TENANT=moodle
       #- ALLOW_EMPTY_PASSWORD=yes
       - MOODLE_REDIS_HOST=redis
+      - ALLOW_EMPTY_PASSWORD=no
+      - BITNAMI_DEBUG=true
+      - PHP_MEMORY_LIMIT=1024M
+      - PHP_MAX_EXECUTION_TIME=900
+      - PHP_MAX_INPUT_TIME=600
+      - PHP_MAX_INPUT_VARS=5000
+      - PHP_UPLOAD_MAX_FILESIZE=128M
+      - PHP_POST_MAX_SIZE=128M
+      - PHP_OPCACHE_ENABLED=true
+
     volumes:
       - ./moodle_data:/bitnami/moodle
       - ./moodledata_data:/bitnami/moodledata
+      - ./config/moodle/php-fpm/www.conf:/opt/bitnami/php/etc/php-fpm.d/www.conf
+      - ./config/moodle/php-fpm/php-fpm.conf:/opt/bitnami/apache2/conf/extra/php-fpm.conf
+      - ./config/moodle/php-opcache/opcache-settings.ini:/opt/bitnami/php/etc/conf.d/opcache-settings.ini:ro
+
     depends_on:
       - mariadb
       - redis
