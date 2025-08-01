@@ -83,7 +83,6 @@ services:
       - ./plugins/local/mb2megamenu:/bitnami/moodle/local/mb2megamenu
       - ./plugins/local/mb2reviews:/bitnami/moodle/local/mb2reviews
       - ./plugins/local/mb2coursenotes:/bitnami/moodle/local/mb2coursenotes
-      -
 
       # enrolment
       - ./plugins/enrol/autoenrol:/bitnami/moodle/enrol/autoenrol
