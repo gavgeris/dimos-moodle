@@ -50,7 +50,7 @@ git submodule add https://github.com/moodleworkplace/moodle-tool_certificate plu
 #git submodule add https://github.com/cellule-tice/moodle-format_collapsibletopics course/format/collapsibletopics
 # git submodule add https://github.com/gavgeris/moodle-format_remuiformat.git plugins/course/format/remuiformat
 
-git submodule add https://github.com/WisdmLabs/moodle-format_remuiformat course/format/remuiformat
+git submodule add https://github.com/WisdmLabs/moodle-format_remuiformat plugins/course/format/remuiformat
 #git submodule add https://github.com/gjb2048/moodle-format_topcoll.git course/format/topcoll
 #git submodule add https://github.com/marinaglancy/moodle-format_flexsections course/format/flexsections
 
