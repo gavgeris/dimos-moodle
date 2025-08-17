@@ -74,7 +74,7 @@ services:
       - ./plugins/admin/tool/certificate:/bitnami/moodle/admin/tool/certificate
 
       # course format
-      - ./plugins/course/format/remuiformat:/bitnami/moodle/course/format/remuiformat
+      #- ./plugins/course/format/remuiformat:/bitnami/moodle/course/format/remuiformat
 
       # local plugins
       - ./plugins/local/modcustomfields:/bitnami/moodle/local/modcustomfields
