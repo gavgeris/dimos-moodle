@@ -57,6 +57,7 @@ services:
       - ./plugins/mod/groupmembers:/bitnami/moodle/mod/groupmembers
       - ./plugins/mod/questionnaire:/bitnami/moodle/mod/questionnaire
       - ./plugins/mod/coursecertificate:/bitnami/moodle/mod/coursecertificate
+      - ./plugins/mod/rocketchat:/bitnami/moodle/mod/rocketchat
 
       # blocks
       - ./plugins/blocks/sharing_cart:/bitnami/moodle/blocks/sharing_cart

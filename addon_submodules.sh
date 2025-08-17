@@ -4,6 +4,7 @@
 git submodule add https://github.com/learnweb/moodle-mod_groupmembers plugins/mod/groupmembers
 git submodule add https://github.com/PoetOS/moodle-mod_questionnaire plugins/mod/questionnaire
 git submodule add https://github.com/moodleworkplace/moodle-mod_coursecertificate plugins/mod/coursecertificate
+git submodule add https://github.com/EsupPortail/esup-mod_rocketchat plugins/mod/rocketchat
 
 #blocks
 #git submodule add https://github.com/jonof/moodle-block_completion_progress blocks/completion_progress
