@@ -1,5 +1,6 @@
 # Use Bitnami Moodle as the base image
-FROM docker.io/bitnami/moodle:latest
+#FROM docker.io/bitnami/moodle:latest
+FROM docker.io/bitnamilegacy/moodle:5.0.1-debian-12-r6
 
 # Install necessary build tools and dependencies
 RUN install_packages build-essential autoconf libtool git wget zip unzip nano curl 
