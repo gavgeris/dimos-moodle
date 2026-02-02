@@ -58,6 +58,7 @@ services:
       - ./config/php-fpm/www.conf:/opt/bitnami/php/etc/php-fpm.d/www.conf
       - ./config/php-fpm/php-fpm.conf:/opt/bitnami/apache2/conf/extra/php-fpm.conf
       - ./config/php-opcache/opcache-settings.ini:/opt/bitnami/php/etc/conf.d/opcache-settings.ini:ro
+
       # mods
       - ./plugins/mod/groupmembers:/bitnami/moodle/mod/groupmembers
       - ./plugins/mod/questionnaire:/bitnami/moodle/mod/questionnaire
@@ -66,14 +67,10 @@ services:
       - ./plugins/mod/collabora:/bitnami/moodle/mod/collabora
       - ./plugins/mod/attendance:/bitnami/moodle/mod/attendance
       - ./plugins/mod/attendanceregister:/bitnami/moodle/mod/attendanceregister
-      #      - ./plugins/mod/booking:/bitnami/moodle/mod/booking
       - ./plugins/mod/checklist:/bitnami/moodle/mod/checklist
       - ./plugins/mod/choicegroup:/bitnami/moodle/mod/choicegroup
       - ./plugins/mod/reengagement:/bitnami/moodle/mod/reengagement
       - ./plugins/mod/zoom:/bitnami/moodle/mod/zoom
-
-
-
       #      - ./plugins/mod/matrix:/bitnami/moodle/mod/matrix
 
       # blocks
@@ -89,13 +86,17 @@ services:
       - ./plugins/lib/editor/tiny/plugins/c4l:/bitnami/moodle/lib/editor/tiny/plugins/c4l
 
       # auth
-      #      - ./plugins/auth/cas:/bitnami/moodle/auth/cas
       - ./plugins/auth/casattras:/bitnami/moodle/auth/casattras
 
       # admin tools
       - ./plugins/admin/tool/certificate:/bitnami/moodle/admin/tool/certificate
+      - ./plugins/admin/tool/log/store/lanalytics:/bitnami/moodle/admin/tool/log/store/lanalytics
 
       # course format
+
+      # availability
+      - ./plugins/availability/condition/role:/bitnami/moodle/availability/condition/role
+      - ./plugins/availability/condition/percentage:/bitnami/moodle/availability/condition/percentage
 
       # local plugins
       - ./plugins/local/modcustomfields:/bitnami/moodle/local/modcustomfields
@@ -108,6 +109,7 @@ services:
 
       - ./plugins/local/padmap:/bitnami/moodle/local/padmap
       - ./plugins/local/oauth2:/bitnami/moodle/local/oauth2
+      -
 
       # enrolment
       - ./plugins/enrol/autoenrol:/bitnami/moodle/enrol/autoenrol
@@ -117,6 +119,20 @@ services:
     depends_on:
       - mariadb
       - redis
+    networks:
+      - moodle-network
+  mlbackendpython:
+    image: moodlehq/moodle-mlbackend-python:3.0.5-python3.7.5
+    container_name: mlbackendpython
+    restart: unless-stopped
+    environment:
+      - MOODLE_MLBACKEND_PYTHON_USERS=default:sshhhh
+      # optional: where the backend stores models/logs inside the container
+      - MOODLE_MLBACKEND_PYTHON_DIR=/data
+    volumes:
+      - ./mlbackend_data:/data
+    ports:
+      - "5000:5000"
     networks:
       - moodle-network
   caddy:
