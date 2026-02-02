@@ -109,7 +109,6 @@ services:
 
       - ./plugins/local/padmap:/bitnami/moodle/local/padmap
       - ./plugins/local/oauth2:/bitnami/moodle/local/oauth2
-      -
 
       # enrolment
       - ./plugins/enrol/autoenrol:/bitnami/moodle/enrol/autoenrol
