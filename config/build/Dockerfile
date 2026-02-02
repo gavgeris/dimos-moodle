@@ -5,6 +5,22 @@ FROM docker.io/bitnamilegacy/moodle:5.0.1-debian-12-r6
 # Install necessary build tools and dependencies
 RUN install_packages build-essential autoconf libtool git wget zip unzip nano curl 
 
+# Install Python 3 + tooling (Debian 12)
+RUN install_packages python3 python3-venv python3-pip python3-dev
+
+# (Optional but recommended) make /usr/bin/python exist (some tools expect "python")
+RUN install_packages python-is-python3 || true
+
+# Create a dedicated venv for Moodle analytics integrations
+RUN python3 -m venv /opt/bitnami/python && \
+    /opt/bitnami/python/bin/pip install --no-cache-dir --upgrade pip setuptools wheel
+
+# (Optional) install common analytics packages (heavier image)
+# Enable only if you actually need them for your analytics pipeline/plugin
+RUN /opt/bitnami/python/bin/pip install --no-cache-dir \
+    numpy scipy pandas scikit-learn joblib
+
+
 # Clone, build, and install php-redis
 RUN git clone https://github.com/phpredis/phpredis.git && \
     cd phpredis && \
