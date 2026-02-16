@@ -122,20 +122,20 @@ services:
       - redis
     networks:
       - moodle-network
-  mlbackendpython:
-    image: moodlehq/moodle-mlbackend-python:3.0.5-python3.7.5
-    container_name: mlbackendpython
-    restart: unless-stopped
-    environment:
-      - MOODLE_MLBACKEND_PYTHON_USERS=default:sshhhh
-      # optional: where the backend stores models/logs inside the container
-      - MOODLE_MLBACKEND_PYTHON_DIR=/data
-    volumes:
-      - ./mlbackend_data:/data
-    ports:
-      - "5000:5000"
-    networks:
-      - moodle-network
+  #mlbackendpython:
+  #  image: moodlehq/moodle-mlbackend-python:3.0.5-python3.7.5
+  #  container_name: mlbackendpython
+  #  restart: unless-stopped
+  #  environment:
+  #    - MOODLE_MLBACKEND_PYTHON_USERS=default:sshhhh
+  #    # optional: where the backend stores models/logs inside the container
+  #    - MOODLE_MLBACKEND_PYTHON_DIR=/data
+  #  volumes:
+  #    - ./mlbackend_data:/data
+  #  ports:
+  #    - "5000:5000"
+  #  networks:
+  #    - moodle-network
   caddy:
     image: caddy:latest
     container_name: moodle_caddy
