@@ -76,6 +76,7 @@ services:
       # blocks
       - ./plugins/blocks/sharing_cart:/bitnami/moodle/blocks/sharing_cart
       - ./plugins/blocks/configurable_reports:/bitnami/moodle/blocks/configurable_reports
+      - ./plugins/blocks/completion_progress:/bitnami/moodle/blocks/completion_progress
 
       # filters
       - ./plugins/filter/filtercodes:/bitnami/moodle/filter/filtercodes
