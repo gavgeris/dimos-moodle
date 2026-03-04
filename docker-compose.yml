@@ -89,6 +89,9 @@ services:
       # auth
       - ./plugins/auth/casattras:/bitnami/moodle/auth/casattras
 
+      # web services
+      - ./plugins/webservice/mcp:/bitnami/moodle/webservice/mcp
+
       # admin tools
       - ./plugins/admin/tool/certificate:/bitnami/moodle/admin/tool/certificate
       - ./plugins/admin/tool/log/store/lanalytics:/bitnami/moodle/admin/tool/log/store/lanalytics
