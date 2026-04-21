@@ -20,14 +20,39 @@ $CFG->dataroot = '/var/www/moodledata';
 $CFG->admin = 'admin';
 $CFG->sslproxy = true;
 
-$CFG->debug = 0;
-$CFG->debugdisplay = false;
+$CFG->directorypermissions = 02777;
+
+// In config.php — control debug via .env file
+if (getenv('MOODLE_DEBUG') === 'true') {
+    $CFG->debug        = 32767;
+    $CFG->debugdisplay = true;
+} else {
+    $CFG->debug        = 0;
+    $CFG->debugdisplay = false;
+}
 
 // Redis session/cache
 $CFG->session_handler_class = '\core\session\redis';
 $CFG->session_redis_host = 'redis';
 $CFG->session_redis_port = 6379;
+$CFG->session_redis_database    = 0;         // DB index 0 for sessions
+$CFG->session_redis_auth        = '';        // set if your redis has a password
+$CFG->session_redis_prefix      = 'mdl_sess_';
+$CFG->session_redis_acquire_lock_timeout  = 120;
+$CFG->session_redis_lock_expire           = 7200;
+$CFG->session_redis_lock_retry            = 100;
 
-$CFG->directorypermissions = 02777;
+// Redis — MUC (Moodle Universal Cache)
+// This replaces file-based caching for application, session and request caches
+$CFG->alternative_cache_factory_class = 'tool_forcedcache_cache_factory';
+
+// If you don't have tool_forcedcache plugin, use this instead:
+define('CACHE_DISABLE_ALL', false);
+
+$CFG->localcachedir   = '/var/www/moodledata/localcache';
+$CFG->tempdir         = '/var/www/moodledata/temp';
+$CFG->cachedir        = '/var/www/moodledata/cache';
+$CFG->langotherroot   = '/var/www/moodledata/lang';
+
 
 require_once(__DIR__ . '/lib/setup.php');

@@ -31,12 +31,13 @@ services:
     container_name: moodle
     restart: unless-stopped
     environment:
-      - MOODLE_DATABASE_PASSWORD=${MARIADB_PASSWORD}
+      - MOODLE_DATABASE_PASSWORD=${MOODLE_DATABASE_PASSWORD}
       - MOODLE_WWWROOT=${MOODLE_WWWROOT}
     volumes:
       # --- DATA (must persist) ---
       - ./moodledata_data:/var/www/moodledata
       - ./moodle_course_backups:/var/www/moodle_course_backups
+      - ./config/moodle/config.php:/var/www/html/config.php:ro
 
       # --- PHP CONFIG (drop-in replacements for Bitnami mounts) ---
       - ./config/php-opcache/opcache-settings.ini:/usr/local/etc/php/conf.d/opcache-settings.ini:ro
