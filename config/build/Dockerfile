@@ -52,4 +52,8 @@ COPY config/php/moodle.ini /usr/local/etc/php/conf.d/moodle.ini
 COPY config/moodle/config.php /var/www/html/config.php
 RUN chown www-data:www-data /var/www/html/config.php
 
+# In your Dockerfile
+COPY config/docker-entrypoint.d/00-fix-permissions.sh /docker-entrypoint.d/00-fix-permissions.sh
+RUN chmod +x /docker-entrypoint.d/00-fix-permissions.sh
+
 WORKDIR /var/www/html
