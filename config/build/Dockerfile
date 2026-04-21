@@ -1,56 +1,57 @@
-# Use Bitnami Moodle as the base image
-#FROM docker.io/bitnami/moodle:latest
-FROM docker.io/bitnamilegacy/moodle:5.0.1-debian-12-r6
+FROM moodlehq/moodle-php-apache:8.3
 
-# Install necessary build tools and dependencies
-RUN install_packages build-essential autoconf libtool git wget zip unzip nano curl 
+# In your Dockerfile, after FROM moodlehq/moodle-php-apache:8.3
+COPY config/apache/mpm.conf /etc/apache2/conf-available/mpm.conf
+RUN a2enconf mpm
 
-# Clone, build, and install php-redis
-RUN git clone https://github.com/phpredis/phpredis.git && \
-    cd phpredis && \
-    /opt/bitnami/php/bin/phpize && \
-    ./configure --with-php-config=/opt/bitnami/php/bin/php-config && \
-    make && make install && \
-    echo "extension=redis.so" > /opt/bitnami/php/etc/conf.d/redis.ini && \
-    cd .. && rm -rf phpredis
+# Install extra tools + phpredis extension + Greek locale
+RUN apt-get update && apt-get install -y \
+    wget unzip zip nano curl git locales \
+    && sed -i 's/# el_GR.UTF-8 UTF-8/el_GR.UTF-8 UTF-8/' /etc/locale.gen \
+    && locale-gen \
+    && rm -rf /var/lib/apt/lists/* \
+    && pecl install redis \
+    && docker-php-ext-enable redis
 
-# Download and install Moosh
+ENV LANG=el_GR.UTF-8 \
+    LANGUAGE=el_GR:el \
+    LC_ALL=el_GR.UTF-8
+
+# Download Moodle 5.1 into webroot
+# moodlehq/moodle-php-apache uses /var/www/html/public as docroot for 5.1+
+RUN wget -q https://download.moodle.org/download.php/direct/stable501/moodle-5.1.tgz \
+    && tar -xzf moodle-5.1.tgz -C /tmp \
+    && cp -a /tmp/moodle/. /var/www/html/ \
+    && rm -rf moodle-5.1.tgz /tmp/moodle
+
+# Greek language pack (bundled in webroot so it is available before moodledata is populated)
+RUN mkdir -p /var/www/html/lang \
+    && wget -q https://download.moodle.org/download.php/langpack/5.1/el.zip \
+    && unzip -q el.zip -d /var/www/html/lang/ \
+    && rm el.zip
+
+# Moodle 5.1+ uses a /public subdirectory as the actual web root
+# The moodlehq image handles this via the 10-wwwroot.sh entrypoint script automatically
+
+# Create moodledata directory (outside webroot — important for security)
+RUN mkdir -p /var/www/moodledata \
+    && chown -R www-data:www-data /var/www/html \
+    && chown -R www-data:www-data /var/www/moodledata \
+    && chmod -R 755 /var/www/html \
+    && chmod 770 /var/www/moodledata
+
+# Install Moosh
 RUN cd /opt && \
-    wget https://moodle.org/plugins/download.php/33902/moosh_moodle45_2024111400.zip && \
-    unzip moosh_moodle45_2024111400.zip && \
+    wget https://moodle.org/plugins/download.php/39220/moosh_moodle51_2025121901.zip && \
+    unzip moosh_moodle51_2025121901.zip && \
     ln -s /opt/moosh/moosh.php /usr/local/bin/moosh && \
-    rm moosh_moodle45_2024111400.zip  # Clean up zip file
+    rm moosh_moodle51_2025121901.zip
 
-# Clean up unnecessary packages and cache
-RUN apt-get remove -y build-essential autoconf libtool git && \
-    apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# PHP settings via ini file (moodlehq way)
+COPY config/php/moodle.ini /usr/local/etc/php/conf.d/moodle.ini
 
+# Moodle config.php
+COPY config/moodle/config.php /var/www/html/config.php
+RUN chown www-data:www-data /var/www/html/config.php
 
-# Copy the pre-created php-fpm.conf file into the correct location
-COPY extra/php-fpm.conf /opt/bitnami/apache2/conf/extra/php-fpm.conf
-
-# Step 2: Set the socket ownership and permissions in php-fpm.conf (For using socket only)
-#RUN sed -i 's/^;\(listen.owner = daemon\)/\1/' /opt/bitnami/php/etc/php-fpm.d/www.conf && \
-#    sed -i 's/^;\(listen.group = daemon\)/\1/' /opt/bitnami/php/etc/php-fpm.d/www.conf && \
-#    sed -i 's/^;\(listen.mode = 0660\)/\1/' /opt/bitnami/php/etc/php-fpm.d/www.conf
-
-# Step 2: Modify Apache httpd.conf
-RUN sed -i 's|#LoadModule proxy_module modules/mod_proxy.so|LoadModule proxy_module modules/mod_proxy.so|' /opt/bitnami/apache2/conf/httpd.conf && \
-    sed -i 's|#LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so|LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so|' /opt/bitnami/apache2/conf/httpd.conf && \
-    sed -i 's|LoadModule php_module modules/libphp.so|#LoadModule php_module modules/libphp.so|' /opt/bitnami/apache2/conf/httpd.conf && \
-    echo 'Include "/opt/bitnami/apache2/conf/extra/php-fpm.conf"' >> /opt/bitnami/apache2/conf/httpd.conf && \
-    echo "Timeout 600" >> /opt/bitnami/apache2/conf/httpd.conf && \
-    echo "KeepAlive On" >> /opt/bitnami/apache2/conf/httpd.conf && \
-    echo "KeepAliveTimeout 100" >> /opt/bitnami/apache2/conf/httpd.conf
-
-
-# Create a custom entrypoint wrapper
-COPY --chmod=755 custom-entrypoint.sh /
-ENTRYPOINT ["/custom-entrypoint.sh"]
-CMD ["/opt/bitnami/scripts/moodle/run.sh"]
-
-
-# Set working directory
-WORKDIR /bitnami/moodle
+WORKDIR /var/www/html

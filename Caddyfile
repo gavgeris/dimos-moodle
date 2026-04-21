@@ -1,0 +1,89 @@
+# Moodle Caddyfile
+#
+# For local development, use localhost or your local domain
+# For production, replace with your actual domain name
+#
+# Examples:
+# - Local: localhost, localhost:8080, moodle.local
+# - Production: moodle.example.com
+
+# Local development (HTTP only)
+localhost {
+    # Reverse proxy to the moodle container
+    reverse_proxy moodle:80 {
+        # Forward original headers to Moodle
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-Host {host}
+    }
+
+    # Enable logging
+    log {
+        output stdout
+        format console
+        level INFO
+    }
+
+    # Increase timeouts for Moodle operations
+    timeouts {
+        read_body 30s
+        write 30s
+        idle 2m
+    }
+}
+
+# Production configuration (uncomment and modify for production use)
+# Replace 'moodle.example.com' with your actual domain
+#
+# moodle.example.com {
+#     # Caddy will automatically obtain and renew SSL certificates from Let's Encrypt
+#
+#     # Reverse proxy to the moodle container
+#     reverse_proxy moodle:80 {
+#         # Forward original headers to Moodle
+#         header_up Host {host}
+#         header_up X-Real-IP {remote_host}
+#         header_up X-Forwarded-For {remote_host}
+#         header_up X-Forwarded-Proto {scheme}
+#         header_up X-Forwarded-Host {host}
+#     }
+#
+#     # Enable logging
+#     log {
+#         output stdout
+#         format console
+#         level INFO
+#     }
+#
+#     # Increase timeouts for Moodle operations
+#     timeouts {
+#         read_body 30s
+#         write 30s
+#         idle 2m
+#     }
+#
+#     # Security headers
+#     header {
+#         # Enable HSTS
+#         Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+#         # Prevent clickjacking
+#         X-Frame-Options "SAMEORIGIN"
+#         # Prevent MIME type sniffing
+#         X-Content-Type-Options "nosniff"
+#         # XSS Protection
+#         X-XSS-Protection "1; mode=block"
+#         # Remove Server header
+#         -Server
+#     }
+# }
+
+# Global options (optional)
+{
+    # Email for Let's Encrypt notifications (update this for production)
+    # email admin@example.com
+
+    # Use staging Let's Encrypt for testing (uncomment for testing)
+    # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
