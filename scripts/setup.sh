@@ -4,12 +4,12 @@ set -e
 echo "Creating data directories with correct permissions..."
 
 # moodledata — www-data (UID 33) in moodlehq container
-mkdir -p ./moodledata_data ./moodle_course_backups
-chown -R 33:33 ./moodledata_data ./moodle_course_backups
+mkdir -p ../moodledata_data ../moodle_course_backups
+chown -R 33:33 ../moodledata_data ../moodle_course_backups
 
 # mariadb — UID 1001 in bitnami container
-mkdir -p ./mariadb_data
-chown -R 1001:1001 ./mariadb_data
+mkdir -p ../mariadb_data
+chown -R 1001:1001 ../mariadb_data
 
 echo "Done. You can now run: docker compose up -d"
 
