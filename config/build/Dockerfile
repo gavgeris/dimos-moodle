@@ -9,9 +9,7 @@ RUN apt-get update && apt-get install -y \
     wget unzip zip nano curl git locales \
     && sed -i 's/# el_GR.UTF-8 UTF-8/el_GR.UTF-8 UTF-8/' /etc/locale.gen \
     && locale-gen \
-    && rm -rf /var/lib/apt/lists/* \
-    && pecl install redis \
-    && docker-php-ext-enable redis
+    && rm -rf /var/lib/apt/lists/*
 
 ENV LANG=el_GR.UTF-8 \
     LANGUAGE=el_GR:el \
