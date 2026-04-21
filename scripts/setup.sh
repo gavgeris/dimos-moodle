@@ -38,11 +38,11 @@ clone_plugin https://github.com/learnweb/moodle-mod_groupmembers            ../p
 clone_plugin https://github.com/PoetOS/moodle-mod_questionnaire              ../plugins/mod/questionnaire
 clone_plugin https://github.com/moodleworkplace/moodle-mod_coursecertificate ../plugins/mod/coursecertificate
 clone_plugin https://github.com/danmarsden/moodle-mod_attendance             ../plugins/mod/attendance
+clone_plugin https://github.com/ndunand/moodle-mod_choicegroup               ../plugins/mod/choicegroup
+clone_plugin https://github.com/ncstate-delta/moodle-mod_zoom                ../plugins/mod/zoom
 # MISSING REPO — add URL: ../plugins/mod/attendanceregister
 # MISSING REPO — add URL: ../plugins/mod/checklist
-# MISSING REPO — add URL: ../plugins/mod/choicegroup
 # MISSING REPO — add URL: ../plugins/mod/reengagement
-# MISSING REPO — add URL: ../plugins/mod/zoom
 
 # ---------------------------------------------------------------------------
 # blocks

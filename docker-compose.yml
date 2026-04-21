@@ -42,40 +42,34 @@ services:
       - ./config/php-opcache/opcache-settings.ini:/usr/local/etc/php/conf.d/opcache-settings.ini:ro
 
       # --- PLUGINS (same as before, path changes /bitnami/moodle → /var/www/html) ---
-#      - ./plugins/mod/groupmembers:/var/www/html/mod/groupmembers
-#      - ./plugins/mod/questionnaire:/var/www/html/mod/questionnaire
-#      - ./plugins/mod/coursecertificate:/var/www/html/mod/coursecertificate
-#      - ./plugins/mod/rocketchat:/var/www/html/mod/rocketchat
-#      - ./plugins/mod/collabora:/var/www/html/mod/collabora
-#      - ./plugins/mod/attendance:/var/www/html/mod/attendance
-#      - ./plugins/mod/attendanceregister:/var/www/html/mod/attendanceregister
-#      - ./plugins/mod/checklist:/var/www/html/mod/checklist
-#      - ./plugins/mod/choicegroup:/var/www/html/mod/choicegroup
+      - ./plugins/mod/groupmembers:/var/www/html/mod/groupmembers
+      - ./plugins/mod/questionnaire:/var/www/html/mod/questionnaire
+      - ./plugins/mod/coursecertificate:/var/www/html/mod/coursecertificate
+      - ./plugins/mod/attendance:/var/www/html/mod/attendance
+      - ./plugins/mod/choicegroup:/var/www/html/mod/choicegroup
 #      - ./plugins/mod/reengagement:/var/www/html/mod/reengagement
-#      - ./plugins/mod/zoom:/var/www/html/mod/zoom
-#      - ./plugins/blocks/sharing_cart:/var/www/html/blocks/sharing_cart
-#      - ./plugins/blocks/configurable_reports:/var/www/html/blocks/configurable_reports
-#      - ./plugins/blocks/completion_progress:/var/www/html/blocks/completion_progress
-#      - ./plugins/filter/filtercodes:/var/www/html/filter/filtercodes
-#      - ./plugins/filter/generico:/var/www/html/filter/generico
+      - ./plugins/mod/zoom:/var/www/html/mod/zoom
+      - ./plugins/blocks/sharing_cart:/var/www/html/blocks/sharing_cart
+      - ./plugins/blocks/configurable_reports:/var/www/html/blocks/configurable_reports
+      - ./plugins/blocks/completion_progress:/var/www/html/blocks/completion_progress
+      - ./plugins/filter/filtercodes:/var/www/html/filter/filtercodes
+      - ./plugins/filter/generico:/var/www/html/filter/generico
 #      - ./plugins/filter/mb2shortcodes:/var/www/html/filter/mb2shortcodes
-#      - ./plugins/lib/editor/tiny/plugins/c4l:/var/www/html/lib/editor/tiny/plugins/c4l
-#      - ./plugins/auth/casattras:/var/www/html/auth/casattras
-#      - ./plugins/webservice/mcp:/var/www/html/webservice/mcp
-#      - ./plugins/admin/tool/certificate:/var/www/html/admin/tool/certificate
+      - ./plugins/lib/editor/tiny/plugins/c4l:/var/www/html/lib/editor/tiny/plugins/c4l
+      - ./plugins/auth/casattras:/var/www/html/auth/casattras
+      - ./plugins/webservice/mcp:/var/www/html/webservice/mcp
+      - ./plugins/admin/tool/certificate:/var/www/html/admin/tool/certificate
 #      - ./plugins/admin/tool/log/store/lanalytics:/var/www/html/admin/tool/log/store/lanalytics
-#      - ./plugins/availability/condition/role:/var/www/html/availability/condition/role
-#      - ./plugins/availability/condition/percentage:/var/www/html/availability/condition/percentage
-#      - ./plugins/local/modcustomfields:/var/www/html/local/modcustomfields
-#      - ./plugins/local/staticpage:/var/www/html/local/staticpage
+      - ./plugins/availability/condition/role:/var/www/html/availability/condition/role
+      - ./plugins/availability/condition/percentage:/var/www/html/availability/condition/percentage
+      - ./plugins/local/modcustomfields:/var/www/html/local/modcustomfields
+      - ./plugins/local/staticpage:/var/www/html/local/staticpage
 #      - ./plugins/local/mb2builder:/var/www/html/local/mb2builder
 #      - ./plugins/local/mb2megamenu:/var/www/html/local/mb2megamenu
 #      - ./plugins/local/mb2reviews:/var/www/html/local/mb2reviews
 #      - ./plugins/local/mb2coursenotes:/var/www/html/local/mb2coursenotes
-#      - ./plugins/local/padmap:/var/www/html/local/padmap
-#      - ./plugins/local/oauth2:/var/www/html/local/oauth2
 #      - ./plugins/local/learning_analytics:/var/www/html/local/learning_analytics
-#      - ./plugins/enrol/autoenrol:/var/www/html/enrol/autoenrol
+      - ./plugins/enrol/autoenrol:/var/www/html/enrol/autoenrol
 
     depends_on:
       - mariadb
