@@ -45,7 +45,7 @@ $CFG->session_redis_lock_retry            = 100;
 // Redis — MUC (Moodle Universal Cache)
 
 // If you don't have tool_forcedcache plugin, use this instead:
-define('CACHE_DISABLE_ALL', false);
+//define('CACHE_DISABLE_ALL', false);
 
 $CFG->localcachedir   = '/var/www/moodledata/localcache';
 $CFG->tempdir         = '/var/www/moodledata/temp';
