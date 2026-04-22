@@ -44,7 +44,7 @@ services:
       # --- DATA (must persist) ---
       - ./moodledata_data:/var/www/moodledata
       - ./moodle_course_backups:/var/www/moodle_course_backups
-      - ./config/moodle/config.php:/var/www/html/public/config.php:ro
+      - ./config/moodle/config.php:/var/www/html/config.php:ro
       - ./config/docker-entrypoint.d/99-start-cron.sh:/docker-entrypoint.d/99-start-cron.sh
       # --- PHP CONFIG (drop-in replacements for Bitnami mounts) ---
       - ./config/php-opcache/opcache-settings.ini:/usr/local/etc/php/conf.d/opcache-settings.ini:ro
