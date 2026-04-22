@@ -57,13 +57,6 @@
          level INFO
      }
 
-     # Increase timeouts for Moodle operations
-     timeouts {
-         read_body 30s
-         write 30s
-         idle 2m
-     }
-
      # Security headers
      header {
          # Enable HSTS
@@ -86,4 +79,12 @@
 
     # Use staging Let's Encrypt for testing (uncomment for testing)
     # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+
+    servers {
+        timeouts {
+            read_body 30s
+            write     30s
+            idle      2m
+        }
+    }
 }
