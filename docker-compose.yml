@@ -37,40 +37,40 @@ services:
       # --- DATA (must persist) ---
       - ./moodledata_data:/var/www/moodledata
       - ./moodle_course_backups:/var/www/moodle_course_backups
-      - ./config/moodle/config.php:/var/www/html/config.php:ro
+      - ./config/moodle/config.php:/var/www/html/public/config.php:ro
 
       # --- PHP CONFIG (drop-in replacements for Bitnami mounts) ---
       - ./config/php-opcache/opcache-settings.ini:/usr/local/etc/php/conf.d/opcache-settings.ini:ro
 
       # --- PLUGINS (same as before, path changes /bitnami/moodle → /var/www/html) ---
-      - ./plugins/mod/groupmembers:/var/www/html/mod/groupmembers
-      - ./plugins/mod/questionnaire:/var/www/html/mod/questionnaire
-      - ./plugins/mod/coursecertificate:/var/www/html/mod/coursecertificate
-      - ./plugins/mod/attendance:/var/www/html/mod/attendance
-      - ./plugins/mod/choicegroup:/var/www/html/mod/choicegroup
-#      - ./plugins/mod/reengagement:/var/www/html/mod/reengagement
-      - ./plugins/mod/zoom:/var/www/html/mod/zoom
-      - ./plugins/blocks/sharing_cart:/var/www/html/blocks/sharing_cart
-      - ./plugins/blocks/configurable_reports:/var/www/html/blocks/configurable_reports
-      - ./plugins/blocks/completion_progress:/var/www/html/blocks/completion_progress
-      - ./plugins/filter/filtercodes:/var/www/html/filter/filtercodes
-      - ./plugins/filter/generico:/var/www/html/filter/generico
-#      - ./plugins/filter/mb2shortcodes:/var/www/html/filter/mb2shortcodes
-      - ./plugins/lib/editor/tiny/plugins/c4l:/var/www/html/lib/editor/tiny/plugins/c4l
-      - ./plugins/auth/casattras:/var/www/html/auth/casattras
-      - ./plugins/webservice/mcp:/var/www/html/webservice/mcp
-      - ./plugins/admin/tool/certificate:/var/www/html/admin/tool/certificate
-#      - ./plugins/admin/tool/log/store/lanalytics:/var/www/html/admin/tool/log/store/lanalytics
-      - ./plugins/availability/condition/role:/var/www/html/availability/condition/role
-      - ./plugins/availability/condition/percentage:/var/www/html/availability/condition/percentage
-      - ./plugins/local/modcustomfields:/var/www/html/local/modcustomfields
-      - ./plugins/local/staticpage:/var/www/html/local/staticpage
-#      - ./plugins/local/mb2builder:/var/www/html/local/mb2builder
-#      - ./plugins/local/mb2megamenu:/var/www/html/local/mb2megamenu
-#      - ./plugins/local/mb2reviews:/var/www/html/local/mb2reviews
-#      - ./plugins/local/mb2coursenotes:/var/www/html/local/mb2coursenotes
-#      - ./plugins/local/learning_analytics:/var/www/html/local/learning_analytics
-      - ./plugins/enrol/autoenrol:/var/www/html/enrol/autoenrol
+      - ./plugins/mod/groupmembers:/var/www/html/public/mod/groupmembers
+      - ./plugins/mod/questionnaire:/var/www/html/public/mod/questionnaire
+      - ./plugins/mod/coursecertificate:/var/www/html/public/mod/coursecertificate
+      - ./plugins/mod/attendance:/var/www/html/public/mod/attendance
+      - ./plugins/mod/choicegroup:/var/www/html/public/mod/choicegroup
+#      - ./plugins/mod/reengagement:/var/www/html/public/mod/reengagement
+      - ./plugins/mod/zoom:/var/www/html/public/mod/zoom
+      - ./plugins/blocks/sharing_cart:/var/www/html/public/blocks/sharing_cart
+      - ./plugins/blocks/configurable_reports:/var/www/html/public/blocks/configurable_reports
+      - ./plugins/blocks/completion_progress:/var/www/html/public/blocks/completion_progress
+      - ./plugins/filter/filtercodes:/var/www/html/public/filter/filtercodes
+      - ./plugins/filter/generico:/var/www/html/public/filter/generico
+#      - ./plugins/filter/mb2shortcodes:/var/www/html/public/filter/mb2shortcodes
+      - ./plugins/lib/editor/tiny/plugins/c4l:/var/www/html/public/lib/editor/tiny/plugins/c4l
+      - ./plugins/auth/casattras:/var/www/html/public/auth/casattras
+      - ./plugins/webservice/mcp:/var/www/html/public/webservice/mcp
+      - ./plugins/admin/tool/certificate:/var/www/html/public/admin/tool/certificate
+#      - ./plugins/admin/tool/log/store/lanalytics:/var/www/html/public/admin/tool/log/store/lanalytics
+      - ./plugins/availability/condition/role:/var/www/html/public/availability/condition/role
+      - ./plugins/availability/condition/percentage:/var/www/html/public/availability/condition/percentage
+      - ./plugins/local/modcustomfields:/var/www/html/public/local/modcustomfields
+      - ./plugins/local/staticpage:/var/www/html/public/local/staticpage
+#      - ./plugins/local/mb2builder:/var/www/html/public/local/mb2builder
+#      - ./plugins/local/mb2megamenu:/var/www/html/public/local/mb2megamenu
+#      - ./plugins/local/mb2reviews:/var/www/html/public/local/mb2reviews
+#      - ./plugins/local/mb2coursenotes:/var/www/html/public/local/mb2coursenotes
+#      - ./plugins/local/learning_analytics:/var/www/html/public/local/learning_analytics
+      - ./plugins/enrol/autoenrol:/var/www/html/public/enrol/autoenrol
 
     depends_on:
       - mariadb
