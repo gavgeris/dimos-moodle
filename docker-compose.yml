@@ -30,6 +30,11 @@ services:
       dockerfile: config/build/Dockerfile
     container_name: moodle
     restart: unless-stopped
+    command: >
+      bash -c "while true; do
+        php /var/www/html/admin/cli/cron.php;
+        sleep 60;
+      done"
     environment:
       - MOODLE_DATABASE_PASSWORD=${MOODLE_DATABASE_PASSWORD}
       - MOODLE_WWWROOT=${MOODLE_WWWROOT}
