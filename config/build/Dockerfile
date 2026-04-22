@@ -25,7 +25,7 @@ RUN wget -q https://download.moodle.org/download.php/direct/stable501/moodle-5.1
 # Greek language pack (bundled in webroot so it is available before moodledata is populated)
 RUN mkdir -p /var/www/html/lang \
     && wget -q https://download.moodle.org/download.php/direct/langpack/5.1/el.zip \
-    && unzip -q el.zip -d /var/www/html/lang/ \
+    && unzip -q el.zip -d /var/www/html/public/lang/ \
     && rm el.zip
 
 # Moodle 5.1+ uses a /public subdirectory as the actual web root

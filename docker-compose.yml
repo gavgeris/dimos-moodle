@@ -78,23 +78,23 @@ services:
     networks:
       - moodle-network
 
-#  caddy:
-#    image: caddy:latest
-#    container_name: moodle_caddy
-#    restart: unless-stopped
-#    ports:
-#      - "80:80"
-#      - "443:443"
-#    volumes:
-#      - ./caddy_data:/data
-#      - ./caddy_config:/config
-#      - ./Caddyfile:/etc/caddy/Caddyfile
-#    depends_on:
-#      - moodle
-#    networks:
-#      - moodle-network
-#      - proxy-net
-#
+  caddy:
+    image: caddy:latest
+    container_name: moodle_caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy_data:/data
+      - ./caddy_config:/config
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    depends_on:
+      - moodle
+    networks:
+      - moodle-network
+      - proxy-net
+
 networks:
   moodle-network:
 #  proxy-net:
