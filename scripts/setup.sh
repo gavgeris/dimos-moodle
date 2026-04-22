@@ -61,7 +61,7 @@ clone_plugin https://github.com/justinhunt/moodle-filter_generico            ../
 # ---------------------------------------------------------------------------
 # tiny editor
 # ---------------------------------------------------------------------------
-clone_plugin https://github.com/reskit/moodle-tiny_c4l                      ../plugins/lib/editor/tiny/../plugins/c4l
+clone_plugin https://github.com/reskit/moodle-tiny_c4l                      ../plugins/lib/editor/tiny/plugins/c4l
 
 # ---------------------------------------------------------------------------
 # auth
