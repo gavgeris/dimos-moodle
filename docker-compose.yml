@@ -97,5 +97,5 @@ services:
 
 networks:
   moodle-network:
-#  proxy-net:
+  proxy-net:
 #    external: true
