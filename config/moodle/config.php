@@ -43,8 +43,6 @@ $CFG->session_redis_lock_expire           = 7200;
 $CFG->session_redis_lock_retry            = 100;
 
 // Redis — MUC (Moodle Universal Cache)
-// This replaces file-based caching for application, session and request caches
-$CFG->alternative_cache_factory_class = 'tool_forcedcache_cache_factory';
 
 // If you don't have tool_forcedcache plugin, use this instead:
 define('CACHE_DISABLE_ALL', false);
