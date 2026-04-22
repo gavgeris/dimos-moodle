@@ -37,20 +37,6 @@ services:
       dockerfile: config/build/Dockerfile
     container_name: moodle
     restart: unless-stopped
-    command: >
-      bash -c "
-        while ! php -r \"
-          \$c = new mysqli('mariadb','bn_moodle',getenv('MOODLE_DATABASE_PASSWORD'),'bitnami_moodle');
-          exit(\$c->connect_error ? 1 : 0);
-        \" 2>/dev/null; do
-          echo 'Waiting for DB...';
-          sleep 5;
-        done;
-        echo 'DB ready, starting cron loop';
-        while true; do
-          php /var/www/html/admin/cli/cron.php;
-          sleep 60;
-        done"
     environment:
       - MOODLE_DATABASE_PASSWORD=${MOODLE_DATABASE_PASSWORD}
       - MOODLE_WWWROOT=${MOODLE_WWWROOT}
@@ -59,7 +45,7 @@ services:
       - ./moodledata_data:/var/www/moodledata
       - ./moodle_course_backups:/var/www/moodle_course_backups
       - ./config/moodle/config.php:/var/www/html/public/config.php:ro
-
+      - ./config/docker-entrypoint.d/99-start-cron.sh:/docker-entrypoint.d/99-start-cron.sh
       # --- PHP CONFIG (drop-in replacements for Bitnami mounts) ---
       - ./config/php-opcache/opcache-settings.ini:/usr/local/etc/php/conf.d/opcache-settings.ini:ro
 

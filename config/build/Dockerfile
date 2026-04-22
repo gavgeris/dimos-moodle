@@ -6,10 +6,11 @@ RUN a2enconf mpm
 
 # Install extra tools + phpredis extension + Greek locale
 RUN apt-get update && apt-get install -y \
-    wget unzip zip nano curl git locales \
+    wget unzip zip nano curl git locales cron \
     && sed -i 's/# el_GR.UTF-8 UTF-8/el_GR.UTF-8 UTF-8/' /etc/locale.gen \
     && locale-gen \
     && rm -rf /var/lib/apt/lists/*
+
 
 ENV LANG=el_GR.UTF-8 \
     LANGUAGE=el_GR:el \
@@ -44,6 +45,11 @@ RUN cd /opt && \
     unzip moosh_moodle51_2025121901.zip && \
     ln -s /opt/moosh/moosh.php /usr/local/bin/moosh && \
     rm moosh_moodle51_2025121901.zip
+
+# Add moodle cron job
+RUN echo "* * * * * www-data php /var/www/html/admin/cli/cron.php >> /proc/1/fd/1 2>&1" \
+    > /etc/cron.d/moodle && \
+    chmod 0644 /etc/cron.d/moodle
 
 # PHP settings via ini file (moodlehq way)
 COPY config/php/moodle.ini /usr/local/etc/php/conf.d/moodle.ini
