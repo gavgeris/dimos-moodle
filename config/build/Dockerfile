@@ -47,7 +47,7 @@ RUN cd /opt && \
     rm moosh_moodle51_2025121901.zip
 
 # Add moodle cron job
-RUN echo '* * * * * www-data . /etc/environment.cron; /usr/local/bin/php /var/www/html/admin/cli/cron.php >> /proc/1/fd/1 2>&1' \
+RUN echo '* * * * * www-data /usr/local/bin/php /var/www/html/admin/cli/cron.php >> /proc/1/fd/1 2>&1' \
     > /etc/cron.d/moodle && \
     echo "" >> /etc/cron.d/moodle && \
     chmod 0644 /etc/cron.d/moodle
