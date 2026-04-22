@@ -3,6 +3,13 @@ services:
     image: docker.io/bitnamilegacy/mariadb:latest
     container_name: moodle_db
     restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-u", "bn_moodle",
+              "-p${MARIADB_PASSWORD}", "--silent" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
     environment:
       - MARIADB_PASSWORD=${MARIADB_PASSWORD}
       - MARIADB_USER=bn_moodle
@@ -31,10 +38,19 @@ services:
     container_name: moodle
     restart: unless-stopped
     command: >
-      bash -c "while true; do
-        php /var/www/html/admin/cli/cron.php;
-        sleep 60;
-      done"
+      bash -c "
+        while ! php -r \"
+          \$c = new mysqli('mariadb','bn_moodle',getenv('MOODLE_DATABASE_PASSWORD'),'bitnami_moodle');
+          exit(\$c->connect_error ? 1 : 0);
+        \" 2>/dev/null; do
+          echo 'Waiting for DB...';
+          sleep 5;
+        done;
+        echo 'DB ready, starting cron loop';
+        while true; do
+          php /var/www/html/admin/cli/cron.php;
+          sleep 60;
+        done"
     environment:
       - MOODLE_DATABASE_PASSWORD=${MOODLE_DATABASE_PASSWORD}
       - MOODLE_WWWROOT=${MOODLE_WWWROOT}
@@ -78,8 +94,10 @@ services:
       - ./plugins/enrol/autoenrol:/var/www/html/public/enrol/autoenrol
 
     depends_on:
-      - mariadb
-      - redis
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_started
     networks:
       - moodle-network
 
